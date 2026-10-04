@@ -6,6 +6,7 @@
 
 #include "game_draw/scene_menu.hpp"
 #include <functional>
+#include <iterator>
 
 namespace
 {
@@ -31,11 +32,13 @@ namespace thp
             break;
         case update_return::INDEX_INCREASE:
             // Increase the scene index, wrapping around if necessary.
-            current_scene_index = (current_scene_index + 1) % (sizeof(scene_array) / sizeof(scene_array[0]));
+            current_scene_index = (current_scene_index + 1) % std::size(scene_array);
             break;
         case update_return::INDEX_DECREASE:
             // Decrease the scene index, wrapping around if necessary.
-            current_scene_index = (current_scene_index - 1 + (sizeof(scene_array) / sizeof(scene_array[0]))) % (sizeof(scene_array) / sizeof(scene_array[0]));
+            // Plus the array count first is aim to ensure the result
+            // is not a negative number.
+            current_scene_index = (current_scene_index - 1 + std::size(scene_array)) % std::size(scene_array);
             break;
         case update_return::INDEX_SWITCH_TO_0:
             // Switch to the first scene (index 0).
