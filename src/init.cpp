@@ -2,13 +2,15 @@
 #include "resource.hpp"
 #include "mainWindow.hpp"
 #include "loop.hpp"
-#include <cassert>
-#include <stdexcept>
 
 namespace thp
 {
     void thp_init()
     {
+        // Initialize the COM library.
+        if (FAILED(CoInitialize(NULL)))
+            throw std::runtime_error("Fail to initialize COM library");
+
         // Ensure that thp_init is called only once and that the main
         // window and resource manager are not already initialized.
         assert(main_wnd == nullptr);
@@ -22,16 +24,5 @@ namespace thp
         resource = new res_manager(main_wnd->get_hwnd());
         // Start the game loop (message loop).
         start_loop();
-        // When the loop ends, clean up resources and main window.
-        if (resource)
-        {
-            delete resource;
-            resource = nullptr;
-        }
-        if (main_wnd)
-        {
-            delete main_wnd;
-            main_wnd = nullptr;
-        }
     }
 }

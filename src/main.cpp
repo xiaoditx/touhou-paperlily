@@ -11,7 +11,10 @@ int WINAPI wWinMain(
     // try to initialize the application
     try
     {
+        // Start the application.
         thp::thp_init();
+        // When quit, clean up all resources that allocated during runtime.
+        thp::thp_end();
     }
     catch (const std::exception &e)
     {

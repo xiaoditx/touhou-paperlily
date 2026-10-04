@@ -25,6 +25,7 @@ namespace thp
         // handle such as for rendering or message handling.
         inline HWND get_hwnd() const { return hwnd_; };
         friend void thp_init();
+        friend void thp_end();
     };
 
     // Global pointer to the main_window instance.

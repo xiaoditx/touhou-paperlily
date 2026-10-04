@@ -21,6 +21,7 @@ namespace thp
         ID2D1HwndRenderTarget *renderTarget = nullptr;
         ID2D1Bitmap *bitmap = nullptr;
         friend void thp_init();
+        friend void thp_end();
     };
 
     inline res_manager *resource;
